@@ -26,6 +26,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     public VentanaPaint() {
         initComponents();
         inicializaBuffers();
+        System.out.println("Holaa putoss");
     }
 
     private void inicializaBuffers() {
