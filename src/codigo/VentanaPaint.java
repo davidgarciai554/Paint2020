@@ -90,12 +90,6 @@ public class VentanaPaint extends javax.swing.JFrame {
 
         colores.setBackground(new java.awt.Color(255, 255, 255));
 
-        herramientas1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                herramientas1MousePressed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -143,12 +137,8 @@ public class VentanaPaint extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jPanel1MouseDragged
 
-    private void herramientas1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_herramientas1MousePressed
-        herramienta = 1;
-    }//GEN-LAST:event_herramientas1MousePressed
-
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
-        switch (herramienta) {
+        switch (herramientas1.formaElegida) {
             case 0:
                 break;
             case 1:
