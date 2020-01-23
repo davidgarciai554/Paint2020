@@ -5,10 +5,16 @@
  */
 package codigo.formas;
 
+import java.awt.Color;
+
 /**
  *
  * @author usuario
  */
-public class Cuadrado {
+public class Cuadrado extends Forma{
+    
+    public Cuadrado(int posX, int posY, int numLados, Color _color, boolean _relleno) {
+        super(posX, posY, 4, _color, _relleno);
+    }
     
 }
