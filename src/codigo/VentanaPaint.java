@@ -36,7 +36,7 @@ public class VentanaPaint extends javax.swing.JFrame {
         initComponents();
         inicializaBuffers();
         jDialog1.setSize(640, 450);
-        Forma miForma = new Forma(-1, -1, 1, Color.white, false);
+        Forma miForma = null;
         System.out.println("Viva hitler");
     }
 
