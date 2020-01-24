@@ -211,8 +211,8 @@ public class VentanaPaint extends javax.swing.JFrame {
         bufferGraphics.drawImage(buffer2, 0,0,null);
         switch (herramientas1.formaElegida) {
             case 0:
-                bufferGraphics.setColor(colores.colorSeleccionado);
-                bufferGraphics.fillOval(evt.getX(), evt.getY(), 10, 10);
+                bufferGraphics2.setColor(colores.colorSeleccionado);
+                bufferGraphics2.fillOval(evt.getX(), evt.getY(), 10, 10);
                 break;
             case 1:
                 miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
@@ -265,7 +265,9 @@ public class VentanaPaint extends javax.swing.JFrame {
     }//GEN-LAST:event_RellenoActionPerformed
 
     private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
-        miForma.dibujate(bufferGraphics2, evt.getX(), evt.getY());
+        if(herramientas1.formaElegida != 0){
+            miForma.dibujate(bufferGraphics2, evt.getX(), evt.getY());
+        }
     }//GEN-LAST:event_jPanel1MouseReleased
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
