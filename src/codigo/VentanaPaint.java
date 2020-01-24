@@ -275,15 +275,13 @@ public class VentanaPaint extends javax.swing.JFrame {
     }//GEN-LAST:event_RellenoActionPerformed
 
     private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
-<<<<<<< HEAD
+
         if(herramientas1.formaElegida != 0){
             miForma.dibujate(bufferGraphics2, evt.getX(), evt.getY());
         }
-=======
         if(herramientas1.formaElegida!=0){
             miForma.dibujate(bufferGraphics2, evt.getX(), evt.getY());
         }   
->>>>>>> master
     }//GEN-LAST:event_jPanel1MouseReleased
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
