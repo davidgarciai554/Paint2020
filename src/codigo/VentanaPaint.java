@@ -10,6 +10,7 @@ import codigo.formas.Cuadrado;
 import codigo.formas.Estrella;
 import codigo.formas.Forma;
 import codigo.formas.Pentagono;
+import codigo.formas.Triangulo;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -27,6 +28,7 @@ public class VentanaPaint extends javax.swing.JFrame {
 
     Forma miForma = null;
     Boolean relleno = false;
+
     /*
      * Creates new form VentanaPaint
      */
@@ -34,6 +36,7 @@ public class VentanaPaint extends javax.swing.JFrame {
         initComponents();
         inicializaBuffers();
         jDialog1.setSize(640, 450);
+        Forma miForma = new Forma(-1, -1, 1, Color.white, false);
         System.out.println("Viva hitler");
     }
 
@@ -49,7 +52,7 @@ public class VentanaPaint extends javax.swing.JFrame {
         bufferGraphics.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
         bufferGraphics2.setColor(Color.WHITE);
         bufferGraphics2.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
-        
+
         jPanelGraphics = (Graphics2D) jPanel1.getGraphics();
     }
 
@@ -208,13 +211,16 @@ public class VentanaPaint extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
-        bufferGraphics.drawImage(buffer2, 0,0,null);
+        bufferGraphics.drawImage(buffer2, 0, 0, null);
         switch (herramientas1.formaElegida) {
             case 0:
-                bufferGraphics.setColor(colores.colorSeleccionado);
-                bufferGraphics.fillOval(evt.getX(), evt.getY(), 10, 10);
+                bufferGraphics2.setColor(colores.colorSeleccionado);
+                bufferGraphics2.fillOval(evt.getX(), evt.getY(), 10, 10);
                 break;
             case 1:
+                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                break;
+            case 3:
                 miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
                 break;
             case 5:
@@ -239,7 +245,11 @@ public class VentanaPaint extends javax.swing.JFrame {
                 break;
             case 1:
                 miForma = new Circulo(evt.getX(), evt.getY(), 256, colores.colorSeleccionado, relleno);
-                miForma.dibujate(bufferGraphics, evt.getX(),evt.getY());
+                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                break;
+            case 3:
+                miForma = new Triangulo(evt.getX(), evt.getY(), 3, colores.colorSeleccionado, relleno);
+                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
                 break;
             case 5:
                 miForma = new Pentagono(evt.getX(), evt.getY(), 5, colores.colorSeleccionado, relleno);
@@ -265,7 +275,9 @@ public class VentanaPaint extends javax.swing.JFrame {
     }//GEN-LAST:event_RellenoActionPerformed
 
     private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
-        miForma.dibujate(bufferGraphics2, evt.getX(), evt.getY());
+        if(herramientas1.formaElegida!=0){
+            miForma.dibujate(bufferGraphics2, evt.getX(), evt.getY());
+        }   
     }//GEN-LAST:event_jPanel1MouseReleased
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
