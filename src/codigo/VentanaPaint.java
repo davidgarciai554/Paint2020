@@ -241,25 +241,25 @@ public class VentanaPaint extends javax.swing.JFrame {
                 pincel.dibujate(bufferGraphics2, evt.getX(), evt.getY(),grosor);
                 break;
             case 1:
-                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
                 break;
             case 3:
-                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
                 break;
             case 5:
-                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
                 break;
             case 4:
-                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
                 break;
             case 7015:
-                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
                 break;
             case 6:
-                recta.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                recta.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
                 break;
             case 7:
-                rectangulo.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                rectangulo.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
                 break;
 
         }
@@ -275,31 +275,31 @@ public class VentanaPaint extends javax.swing.JFrame {
                 pincel.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
             case 1:
                 miForma = new Circulo(evt.getX(), evt.getY(), 256, colores.colorSeleccionado, relleno);
-                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
                 break;
             case 3:
                 miForma = new Triangulo(evt.getX(), evt.getY(), 3, colores.colorSeleccionado, relleno);
-                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
                 break;
             case 5:
                 miForma = new Pentagono(evt.getX(), evt.getY(), 5, colores.colorSeleccionado, relleno);
-                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
                 break;
             case 4:
                 miForma = new Cuadrado(evt.getX(), evt.getY(), 4, colores.colorSeleccionado, relleno);
-                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
                 break;
             case 7015:
                 miForma = new Estrella(evt.getX(), evt.getY(), 256, colores.colorSeleccionado, relleno);
-                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
                 break;
             case 6:
                 recta = new creaRecta(evt.getX(), evt.getY(), colores.colorSeleccionado);
-                recta.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                recta.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
                 break;
             case 7:
                 rectangulo = new Rectangulo(evt.getX(), evt.getY(), colores.colorSeleccionado);
-                rectangulo.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                rectangulo.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
                 break;
         }
     }//GEN-LAST:event_jPanel1MousePressed
@@ -315,13 +315,13 @@ public class VentanaPaint extends javax.swing.JFrame {
     private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
 
         if(herramientas1.formaElegida > 0 && herramientas1.formaElegida < 6 || herramientas1.formaElegida == 7015){
-            miForma.dibujate(bufferGraphics2, evt.getX(), evt.getY());
+            miForma.dibujate(bufferGraphics2, evt.getX(), evt.getY(),grosor);
         }
         else if(herramientas1.formaElegida == 6){
-            recta.dibujate(bufferGraphics2, evt.getX(), evt.getY());
+            recta.dibujate(bufferGraphics2, evt.getX(), evt.getY(),grosor);
         }
         else if(herramientas1.formaElegida == 7){
-            rectangulo.dibujate(bufferGraphics2, evt.getX(), evt.getY());
+            rectangulo.dibujate(bufferGraphics2, evt.getX(), evt.getY(),grosor);
         }
         else if(herramientas1.formaElegida == 0){
             pincel.dibujate(bufferGraphics2, evt.getX(), evt.getY(),grosor);
