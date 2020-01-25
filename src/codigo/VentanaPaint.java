@@ -296,7 +296,7 @@ public class VentanaPaint extends javax.swing.JFrame {
 
     private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
 
-        if(herramientas1.formaElegida != 0 && herramientas1.formaElegida < 6){
+        if(herramientas1.formaElegida != 0 && herramientas1.formaElegida < 6 || herramientas1.formaElegida == 7015){
             miForma.dibujate(bufferGraphics2, evt.getX(), evt.getY());
         }
         if(herramientas1.formaElegida == 6){
