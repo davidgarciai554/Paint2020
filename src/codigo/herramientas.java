@@ -35,6 +35,7 @@ public class herramientas extends javax.swing.JPanel {
         Pincel = new javax.swing.JButton();
         Estrella = new javax.swing.JButton();
         Triangulo = new javax.swing.JButton();
+        Recta = new javax.swing.JButton();
 
         Circulo.setText("Circulo");
         Circulo.addActionListener(new java.awt.event.ActionListener() {
@@ -78,20 +79,28 @@ public class herramientas extends javax.swing.JPanel {
             }
         });
 
+        Recta.setText("Recta");
+        Recta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RectaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(Recta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(Pentagono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Cuadrado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Circulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Pincel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Estrella, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(Triangulo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Estrella, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Triangulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(0, 25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -109,7 +118,9 @@ public class herramientas extends javax.swing.JPanel {
                 .addComponent(Pentagono)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Estrella)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Recta)
+                .addContainerGap(28, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -137,6 +148,10 @@ public class herramientas extends javax.swing.JPanel {
         formaElegida=3;
     }//GEN-LAST:event_TrianguloActionPerformed
 
+    private void RectaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RectaActionPerformed
+        formaElegida=6;
+    }//GEN-LAST:event_RectaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Circulo;
@@ -144,6 +159,7 @@ public class herramientas extends javax.swing.JPanel {
     private javax.swing.JButton Estrella;
     private javax.swing.JButton Pentagono;
     private javax.swing.JButton Pincel;
+    private javax.swing.JButton Recta;
     private javax.swing.JButton Triangulo;
     // End of variables declaration//GEN-END:variables
 }
