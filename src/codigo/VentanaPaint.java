@@ -13,6 +13,7 @@ import codigo.formas.Pentagono;
 import codigo.formas.Rectangulo;
 import codigo.formas.Triangulo;
 import codigo.formas.creaRecta;
+import codigo.formas.Pincel;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -31,6 +32,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     Forma miForma = null;
     creaRecta recta = null;
     Rectangulo rectangulo=null;
+    Pincel pincel = null;
     Boolean relleno = false;
 
     /*
@@ -40,9 +42,6 @@ public class VentanaPaint extends javax.swing.JFrame {
         initComponents();
         inicializaBuffers();
         jDialog1.setSize(640, 450);
-        Forma miForma = null;
-        creaRecta recta = null;
-        Rectangulo rectangulo=null;
         System.out.println("Viva hitler");
     }
 
@@ -220,8 +219,7 @@ public class VentanaPaint extends javax.swing.JFrame {
         bufferGraphics.drawImage(buffer2, 0, 0, null);
         switch (herramientas1.formaElegida) {
             case 0:
-                bufferGraphics2.setColor(colores.colorSeleccionado);
-                bufferGraphics2.fillOval(evt.getX(), evt.getY(), 10, 10);
+                pincel.dibujate(bufferGraphics2, evt.getX(), evt.getY());
                 break;
             case 1:
                 miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
@@ -254,7 +252,8 @@ public class VentanaPaint extends javax.swing.JFrame {
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
         switch (herramientas1.formaElegida) {
             case 0:
-                break;
+                pincel = new Pincel(evt.getX(), evt.getY(), colores.colorSeleccionado);
+                pincel.dibujate(bufferGraphics, evt.getX(), evt.getY());
             case 1:
                 miForma = new Circulo(evt.getX(), evt.getY(), 256, colores.colorSeleccionado, relleno);
                 miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
@@ -296,14 +295,17 @@ public class VentanaPaint extends javax.swing.JFrame {
 
     private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
 
-        if(herramientas1.formaElegida != 0 && herramientas1.formaElegida < 6 || herramientas1.formaElegida == 7015){
+        if(herramientas1.formaElegida > 0 && herramientas1.formaElegida < 6 || herramientas1.formaElegida == 7015){
             miForma.dibujate(bufferGraphics2, evt.getX(), evt.getY());
         }
-        if(herramientas1.formaElegida == 6){
+        else if(herramientas1.formaElegida == 6){
             recta.dibujate(bufferGraphics2, evt.getX(), evt.getY());
         }
-        if(herramientas1.formaElegida == 7){
+        else if(herramientas1.formaElegida == 7){
             rectangulo.dibujate(bufferGraphics2, evt.getX(), evt.getY());
+        }
+        else if(herramientas1.formaElegida == 0){
+            pincel.dibujate(bufferGraphics2, evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_jPanel1MouseReleased
 
