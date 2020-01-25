@@ -10,6 +10,7 @@ import codigo.formas.Cuadrado;
 import codigo.formas.Estrella;
 import codigo.formas.Forma;
 import codigo.formas.Pentagono;
+import codigo.formas.Rectangulo;
 import codigo.formas.Triangulo;
 import codigo.formas.creaRecta;
 import java.awt.Color;
@@ -29,6 +30,7 @@ public class VentanaPaint extends javax.swing.JFrame {
 
     Forma miForma = null;
     creaRecta recta = null;
+    Rectangulo rectangulo=null;
     Boolean relleno = false;
 
     /*
@@ -40,6 +42,7 @@ public class VentanaPaint extends javax.swing.JFrame {
         jDialog1.setSize(640, 450);
         Forma miForma = null;
         creaRecta recta = null;
+        Rectangulo rectangulo=null;
         System.out.println("Viva hitler");
     }
 
@@ -238,6 +241,9 @@ public class VentanaPaint extends javax.swing.JFrame {
             case 6:
                 recta.dibujate(bufferGraphics, evt.getX(), evt.getY());
                 break;
+            case 7:
+                rectangulo.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                break;
 
         }
         repaint(0, 0, 1, 1);
@@ -273,6 +279,10 @@ public class VentanaPaint extends javax.swing.JFrame {
                 recta = new creaRecta(evt.getX(), evt.getY(), colores.colorSeleccionado);
                 recta.dibujate(bufferGraphics, evt.getX(), evt.getY());
                 break;
+            case 7:
+                rectangulo = new Rectangulo(evt.getX(), evt.getY(), colores.colorSeleccionado);
+                rectangulo.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                break;
         }
     }//GEN-LAST:event_jPanel1MousePressed
 
@@ -286,11 +296,14 @@ public class VentanaPaint extends javax.swing.JFrame {
 
     private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
 
-        if(herramientas1.formaElegida != 0 && herramientas1.formaElegida != 6){
+        if(herramientas1.formaElegida != 0 && herramientas1.formaElegida < 6){
             miForma.dibujate(bufferGraphics2, evt.getX(), evt.getY());
         }
         if(herramientas1.formaElegida == 6){
             recta.dibujate(bufferGraphics2, evt.getX(), evt.getY());
+        }
+        if(herramientas1.formaElegida == 7){
+            rectangulo.dibujate(bufferGraphics2, evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_jPanel1MouseReleased
 
