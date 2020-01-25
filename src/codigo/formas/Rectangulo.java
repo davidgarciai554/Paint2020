@@ -11,21 +11,18 @@ import java.awt.Polygon;
 
 /**
  *
- * @author usuario
+ * @author kahzerx
  */
-public class Rectangulo extends Polygon {
-
+public class Rectangulo extends Polygon{
     public Color color = null;
-    //coordenadas del centro de la forma
     public int x = 0;
     public int y = 0;
-
     public Rectangulo(int posX, int posY, Color _color) {
         this.x = posX;
         this.y = posY;
+
         color = _color;
     }
-
     public void dibujate(Graphics2D g2, int posX, int posY) {
         g2.setColor(color);
         g2.drawLine(x, posY, x, y);
@@ -33,5 +30,4 @@ public class Rectangulo extends Polygon {
         g2.drawLine(posX, posY, posX, y);
         g2.drawLine(posX, posY, x, posY);
     }
-
 }
