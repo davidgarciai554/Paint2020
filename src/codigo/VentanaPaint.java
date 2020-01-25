@@ -11,6 +11,7 @@ import codigo.formas.Estrella;
 import codigo.formas.Forma;
 import codigo.formas.Pentagono;
 import codigo.formas.Triangulo;
+import codigo.formas.creaRecta;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -27,6 +28,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     Graphics2D bufferGraphics, bufferGraphics2, jPanelGraphics = null;
 
     Forma miForma = null;
+    creaRecta recta = null;
     Boolean relleno = false;
 
     /*
@@ -37,6 +39,7 @@ public class VentanaPaint extends javax.swing.JFrame {
         inicializaBuffers();
         jDialog1.setSize(640, 450);
         Forma miForma = null;
+        creaRecta recta = null;
         System.out.println("Viva hitler");
     }
 
@@ -232,6 +235,9 @@ public class VentanaPaint extends javax.swing.JFrame {
             case 7015:
                 miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
                 break;
+            case 6:
+                recta.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                break;
 
         }
         repaint(0, 0, 1, 1);
@@ -263,6 +269,10 @@ public class VentanaPaint extends javax.swing.JFrame {
                 miForma = new Estrella(evt.getX(), evt.getY(), 256, colores.colorSeleccionado, relleno);
                 miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
                 break;
+            case 6:
+                recta = new creaRecta(evt.getX(), evt.getY(), colores.colorSeleccionado);
+                recta.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                break;
         }
     }//GEN-LAST:event_jPanel1MousePressed
 
@@ -276,12 +286,12 @@ public class VentanaPaint extends javax.swing.JFrame {
 
     private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
 
-        if(herramientas1.formaElegida != 0){
+        if(herramientas1.formaElegida != 0 && herramientas1.formaElegida != 6){
             miForma.dibujate(bufferGraphics2, evt.getX(), evt.getY());
         }
-        if(herramientas1.formaElegida!=0){
-            miForma.dibujate(bufferGraphics2, evt.getX(), evt.getY());
-        }   
+        if(herramientas1.formaElegida == 6){
+            recta.dibujate(bufferGraphics2, evt.getX(), evt.getY());
+        }
     }//GEN-LAST:event_jPanel1MouseReleased
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
