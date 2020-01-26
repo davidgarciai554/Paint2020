@@ -5,6 +5,7 @@
  */
 package codigo.formas;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
@@ -23,8 +24,9 @@ public class Rectangulo extends Polygon{
 
         color = _color;
     }
-    public void dibujate(Graphics2D g2, int posX, int posY) {
+    public void dibujate(Graphics2D g2, int posX, int posY,String grosor) {
         g2.setColor(color);
+        g2.setStroke(new BasicStroke(Float.parseFloat(grosor)));
         g2.drawLine(x, posY, x, y);
         g2.drawLine(posX, y, x, y);
         g2.drawLine(posX, posY, posX, y);
