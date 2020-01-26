@@ -298,7 +298,7 @@ public class VentanaPaint extends javax.swing.JFrame {
                 recta.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
                 break;
             case 7:
-                rectangulo = new Rectangulo(evt.getX(), evt.getY(), colores.colorSeleccionado);
+                rectangulo = new Rectangulo(evt.getX(), evt.getY(), colores.colorSeleccionado, relleno);
                 rectangulo.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
                 break;
         }
