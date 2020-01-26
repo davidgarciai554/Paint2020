@@ -14,7 +14,7 @@ import java.awt.Color;
 public class Circulo extends Forma {
 
     public Circulo(int posX, int posY, int numLados, Color _color, boolean _relleno) {
-        super(posX, posY,306, _color, _relleno);
+        super(posX, posY,numLados, _color, _relleno);
     }
 
 }
