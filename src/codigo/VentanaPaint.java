@@ -342,7 +342,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     }//GEN-LAST:event_masColoresActionPerformed
 
     private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
-        grosor=Integer.toString(jSlider1.getValue()/10)+"f";
+        grosor=Integer.toString(jSlider1.getValue()/15)+"f";
     }//GEN-LAST:event_jSlider1StateChanged
 
     /**
