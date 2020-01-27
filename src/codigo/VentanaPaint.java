@@ -261,6 +261,9 @@ public class VentanaPaint extends javax.swing.JFrame {
             case 7:
                 rectangulo.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
                 break;
+            case 8:
+                pincel.dibujate(bufferGraphics2, evt.getX(), evt.getY(),grosor);
+                break;
 
         }
         repaint(0, 0, 1, 1);
@@ -273,6 +276,7 @@ public class VentanaPaint extends javax.swing.JFrame {
             case 0:
                 pincel = new Pincel(evt.getX(), evt.getY(), colores.colorSeleccionado);
                 pincel.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
+                break;
             case 1:
                 miForma = new Circulo(evt.getX(), evt.getY(), 256, colores.colorSeleccionado, relleno);
                 miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
@@ -300,6 +304,10 @@ public class VentanaPaint extends javax.swing.JFrame {
             case 7:
                 rectangulo = new Rectangulo(evt.getX(), evt.getY(), colores.colorSeleccionado, relleno);
                 rectangulo.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
+                break;
+            case 8:
+                pincel = new Pincel(evt.getX(), evt.getY(), Color.WHITE);
+                pincel.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
                 break;
         }
     }//GEN-LAST:event_jPanel1MousePressed
@@ -342,7 +350,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     }//GEN-LAST:event_masColoresActionPerformed
 
     private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
-        grosor=Integer.toString(jSlider1.getValue()/15)+"f";
+        grosor=Integer.toString(jSlider1.getValue()/10)+"f";
     }//GEN-LAST:event_jSlider1StateChanged
 
     /**
