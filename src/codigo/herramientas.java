@@ -44,6 +44,7 @@ public class herramientas extends javax.swing.JPanel {
         Rectangulo = new javax.swing.JButton();
         Borrador = new javax.swing.JButton();
         Spray = new javax.swing.JButton();
+        Pipeta = new javax.swing.JButton();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -121,6 +122,13 @@ public class herramientas extends javax.swing.JPanel {
             }
         });
 
+        Pipeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Pipeta.png"))); // NOI18N
+        Pipeta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PipetaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -148,7 +156,8 @@ public class herramientas extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Pentagono, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Spray, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(Spray, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Pipeta, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -174,7 +183,9 @@ public class herramientas extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Pentagono, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Spray, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(162, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Pipeta, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(106, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -215,8 +226,12 @@ public class herramientas extends javax.swing.JPanel {
     }//GEN-LAST:event_BorradorActionPerformed
 
     private void SprayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SprayActionPerformed
-        formaElegida=9;
+        formaElegida = 9;
     }//GEN-LAST:event_SprayActionPerformed
+
+    private void PipetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PipetaActionPerformed
+        formaElegida = 10;
+    }//GEN-LAST:event_PipetaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -226,6 +241,7 @@ public class herramientas extends javax.swing.JPanel {
     private javax.swing.JButton Estrella;
     private javax.swing.JButton Pentagono;
     private javax.swing.JButton Pincel;
+    private javax.swing.JButton Pipeta;
     private javax.swing.JButton Recta;
     private javax.swing.JButton Rectangulo;
     private javax.swing.JButton Spray;
