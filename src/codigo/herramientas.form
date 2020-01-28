@@ -38,31 +38,37 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="Triangulo" min="-2" pref="50" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="Estrella" min="-2" pref="50" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="Pincel" pref="50" max="32767" attributes="0"/>
-                          <Component id="Circulo" pref="50" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="Triangulo" min="-2" pref="50" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="Estrella" min="-2" pref="50" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="Recta" min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="Cuadrado" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="Pincel" pref="50" max="32767" attributes="0"/>
+                              <Component id="Circulo" pref="50" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="Recta" min="-2" pref="50" max="-2" attributes="0"/>
+                              <Component id="Cuadrado" min="-2" pref="50" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="Rectangulo" min="-2" pref="50" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="Borrador" min="-2" pref="50" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="Rectangulo" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="Pentagono" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="Borrador" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="Spray" min="-2" pref="50" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="Pentagono" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -90,7 +96,10 @@
                   <Component id="Estrella" min="-2" pref="50" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="Pentagono" min="-2" pref="50" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="Pentagono" min="-2" pref="50" max="-2" attributes="0"/>
+                  <Component id="Spray" max="32767" attributes="0"/>
+              </Group>
               <EmptySpace pref="162" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -185,6 +194,16 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BorradorActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="Spray">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/imagenes/Spray.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SprayActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

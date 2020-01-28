@@ -2,7 +2,7 @@
 * To change this license header, choose License Headers in Project Properties.
 * To change this template file, choose Tools | Templates
 * and open the template in the editor.
-*/
+ */
 package codigo;
 
 import codigo.formas.Circulo;
@@ -20,6 +20,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 
@@ -28,11 +29,13 @@ import javax.swing.JFileChooser;
  * @author usuario
  */
 public class VentanaPaint extends javax.swing.JFrame {
-    
+
+    Random aleatorio = new Random();
+
     BufferedImage buffer, buffer2 = null;
-    
+
     Graphics2D bufferGraphics, bufferGraphics2, jPanelGraphics = null;
-    
+
     Forma miForma = null;
     creaRecta recta = null;
     Rectangulo rectangulo = null;
@@ -40,17 +43,18 @@ public class VentanaPaint extends javax.swing.JFrame {
     Boolean relleno = false;
     String grosorGoma = "4";
     String grosor = "4";
-    
+    int grosorSpray = 3;
+
     /*
     * Creates new form VentanaPaint
-    */
+     */
     public VentanaPaint() {
         initComponents();
         inicializaBuffers();
         jDialog1.setSize(640, 450);
         System.out.println("Viva hitler");
     }
-    
+
     private void inicializaBuffers() {
         // creo una imagen del mismo alto y ancho que el jPanel
         buffer = (BufferedImage) jPanel1.createImage(jPanel1.getWidth(), jPanel1.getHeight());//El buffer es el lienzo sobre el que pintaremos
@@ -63,16 +67,16 @@ public class VentanaPaint extends javax.swing.JFrame {
         bufferGraphics.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
         bufferGraphics2.setColor(Color.WHITE);
         bufferGraphics2.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
-        
+
         jPanelGraphics = (Graphics2D) jPanel1.getGraphics();
     }
-    
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
         jPanelGraphics.drawImage(buffer, 0, 0, null);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -310,10 +314,14 @@ public class VentanaPaint extends javax.swing.JFrame {
             case 8:
                 pincel.dibujate(bufferGraphics2, evt.getX(), evt.getY(), grosorGoma);
                 break;
-                
+            case 9:
+                bufferGraphics2.setColor(colores.colorSeleccionado);
+                bufferGraphics2.fillOval(evt.getX() - aleatorio.nextInt((int) Math.PI * (grosorSpray * grosorSpray)) / 4, evt.getY() - aleatorio.nextInt((int) Math.PI * (grosorSpray * grosorSpray)) / 4, grosorSpray, grosorSpray);
+                break;
+
         }
         repaint(0, 0, 1, 1);
-        
+
 
     }//GEN-LAST:event_jPanel1MouseDragged
 
@@ -367,7 +375,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     }//GEN-LAST:event_RellenoActionPerformed
 
     private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
-        
+
         if (herramientas1.formaElegida > 0 && herramientas1.formaElegida < 6 || herramientas1.formaElegida == 7015) {
             miForma.dibujate(bufferGraphics2, evt.getX(), evt.getY(), grosor);
         } else if (herramientas1.formaElegida == 6) {
@@ -395,9 +403,10 @@ public class VentanaPaint extends javax.swing.JFrame {
     }//GEN-LAST:event_masColoresActionPerformed
 
     private void jSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderStateChanged
-        
         grosor = Integer.toString(jSlider.getValue() / 10) + "f";
         grosorGoma = Integer.toString(jSlider.getValue() / 7) + "f";
+        grosorSpray = (jSlider.getValue()/15);
+        if(grosorSpray<2)grosorSpray=2;
     }//GEN-LAST:event_jSliderStateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -409,24 +418,23 @@ public class VentanaPaint extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-        int seleccion= jFileChooser1.showSaveDialog(this);
-        
-        if(seleccion== JFileChooser.APPROVE_OPTION){//si entra aqui es porque han pulsado el boton guardar
-            File fichero= jFileChooser1.getSelectedFile();
+        int seleccion = jFileChooser1.showSaveDialog(this);
+
+        if (seleccion == JFileChooser.APPROVE_OPTION) {//si entra aqui es porque han pulsado el boton guardar
+            File fichero = jFileChooser1.getSelectedFile();
             String nombre = fichero.getName();
-            String extension = nombre.substring(nombre.lastIndexOf('.')+1, nombre.length());
-            
-            if(extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png")){              
-                try{
+            String extension = nombre.substring(nombre.lastIndexOf('.') + 1, nombre.length());
+
+            if (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png")) {
+                try {
                     ImageIO.write(buffer, "png", fichero);
-                }
-                catch(IOException e){
-                    
+                } catch (IOException e) {
+
                 }
             }
         }
     }//GEN-LAST:event_guardarActionPerformed
-    
+
     /**
      * @param args the command line arguments
      */
@@ -435,7 +443,7 @@ public class VentanaPaint extends javax.swing.JFrame {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-        */
+         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -453,7 +461,7 @@ public class VentanaPaint extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(VentanaPaint.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
