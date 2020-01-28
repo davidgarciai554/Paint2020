@@ -2,7 +2,7 @@
 * To change this license header, choose License Headers in Project Properties.
 * To change this template file, choose Tools | Templates
 * and open the template in the editor.
-*/
+ */
 package codigo;
 
 import codigo.formas.Circulo;
@@ -14,12 +14,14 @@ import codigo.formas.Rectangulo;
 import codigo.formas.Triangulo;
 import codigo.formas.creaRecta;
 import codigo.formas.Pincel;
+import codigo.formas.Pipeta;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 
@@ -28,29 +30,33 @@ import javax.swing.JFileChooser;
  * @author usuario
  */
 public class VentanaPaint extends javax.swing.JFrame {
-    
-    BufferedImage buffer, buffer2 = null;
-    
+
+    Random aleatorio = new Random();
+
+    BufferedImage buffer, buffer2, _colorActual = null;
+
     Graphics2D bufferGraphics, bufferGraphics2, jPanelGraphics = null;
-    
+
     Forma miForma = null;
     creaRecta recta = null;
     Rectangulo rectangulo = null;
     Pincel pincel = null;
+    Pipeta pipeta = null;
     Boolean relleno = false;
     String grosorGoma = "4";
     String grosor = "4";
-    
+    int grosorSpray = 3;
+
     /*
     * Creates new form VentanaPaint
-    */
+     */
     public VentanaPaint() {
         initComponents();
         inicializaBuffers();
         jDialog1.setSize(640, 450);
-        System.out.println("Viva hitler");
+        System.out.println("Viva karel");
     }
-    
+
     private void inicializaBuffers() {
         // creo una imagen del mismo alto y ancho que el jPanel
         buffer = (BufferedImage) jPanel1.createImage(jPanel1.getWidth(), jPanel1.getHeight());//El buffer es el lienzo sobre el que pintaremos
@@ -63,16 +69,17 @@ public class VentanaPaint extends javax.swing.JFrame {
         bufferGraphics.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
         bufferGraphics2.setColor(Color.WHITE);
         bufferGraphics2.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
-        
         jPanelGraphics = (Graphics2D) jPanel1.getGraphics();
+
+
     }
-    
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
         jPanelGraphics.drawImage(buffer, 0, 0, null);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -155,6 +162,8 @@ public class VentanaPaint extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 0, 0));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -191,6 +200,7 @@ public class VentanaPaint extends javax.swing.JFrame {
         });
 
         masColores.setText("Mas colores");
+        masColores.setOpaque(false);
         masColores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 masColoresActionPerformed(evt);
@@ -234,47 +244,46 @@ public class VentanaPaint extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(masColores)
+                    .addComponent(colores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Relleno)
-                            .addComponent(colores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(herramientas1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1))))
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(herramientas1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Relleno))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
+                            .addComponent(masColores))))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(herramientas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(herramientas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(24, 24, 24)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                        .addComponent(Relleno)
-                        .addGap(18, 18, 18)
-                        .addComponent(colores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(masColores)
-                .addContainerGap(54, Short.MAX_VALUE))
+                        .addGap(12, 12, 12)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Relleno)
+                    .addComponent(masColores))
+                .addGap(18, 18, 18)
+                .addComponent(colores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(110, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -310,10 +319,14 @@ public class VentanaPaint extends javax.swing.JFrame {
             case 8:
                 pincel.dibujate(bufferGraphics2, evt.getX(), evt.getY(), grosorGoma);
                 break;
-                
+            case 9:
+                bufferGraphics2.setColor(colores.colorSeleccionado);
+                bufferGraphics2.fillOval(evt.getX() - aleatorio.nextInt((int) Math.PI * (grosorSpray * grosorSpray)) / 4, evt.getY() - aleatorio.nextInt((int) Math.PI * (grosorSpray * grosorSpray)) / 4, grosorSpray, grosorSpray);
+                break;
+
         }
         repaint(0, 0, 1, 1);
-        
+
 
     }//GEN-LAST:event_jPanel1MouseDragged
 
@@ -355,6 +368,12 @@ public class VentanaPaint extends javax.swing.JFrame {
                 pincel = new Pincel(evt.getX(), evt.getY(), Color.WHITE);
                 pincel.dibujate(bufferGraphics, evt.getX(), evt.getY(), grosorGoma);
                 break;
+            case 10: 
+                pipeta = new Pipeta(evt.getX(), evt.getY(),buffer2);
+                colores.colorSeleccionado=pipeta.cogeColor(evt.getX(), evt.getY(), buffer2, colores.colorSeleccionado);
+                colores.colorActual.setBackground(colores.colorSeleccionado);
+                break;
+                
         }
     }//GEN-LAST:event_jPanel1MousePressed
 
@@ -367,7 +386,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     }//GEN-LAST:event_RellenoActionPerformed
 
     private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
-        
+
         if (herramientas1.formaElegida > 0 && herramientas1.formaElegida < 6 || herramientas1.formaElegida == 7015) {
             miForma.dibujate(bufferGraphics2, evt.getX(), evt.getY(), grosor);
         } else if (herramientas1.formaElegida == 6) {
@@ -384,6 +403,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
         jDialog1.setVisible(false);
         colores.colorSeleccionado = jColorChooser1.getColor();
+        colores.colorActual.setBackground(colores.colorSeleccionado);
     }//GEN-LAST:event_AceptarActionPerformed
 
     private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
@@ -395,9 +415,12 @@ public class VentanaPaint extends javax.swing.JFrame {
     }//GEN-LAST:event_masColoresActionPerformed
 
     private void jSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderStateChanged
-        
         grosor = Integer.toString(jSlider.getValue() / 10) + "f";
         grosorGoma = Integer.toString(jSlider.getValue() / 7) + "f";
+        grosorSpray = (jSlider.getValue() / 15);
+        if (grosorSpray < 2) {
+            grosorSpray = 2;
+        }
     }//GEN-LAST:event_jSliderStateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -409,24 +432,23 @@ public class VentanaPaint extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-        int seleccion= jFileChooser1.showSaveDialog(this);
-        
-        if(seleccion== JFileChooser.APPROVE_OPTION){//si entra aqui es porque han pulsado el boton guardar
-            File fichero= jFileChooser1.getSelectedFile();
+        int seleccion = jFileChooser1.showSaveDialog(this);
+
+        if (seleccion == JFileChooser.APPROVE_OPTION) {//si entra aqui es porque han pulsado el boton guardar
+            File fichero = jFileChooser1.getSelectedFile();
             String nombre = fichero.getName();
-            String extension = nombre.substring(nombre.lastIndexOf('.')+1, nombre.length());
-            
-            if(extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png")){              
-                try{
+            String extension = nombre.substring(nombre.lastIndexOf('.') + 1, nombre.length());
+
+            if (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png")) {
+                try {
                     ImageIO.write(buffer, "png", fichero);
-                }
-                catch(IOException e){
-                    
+                } catch (IOException e) {
+
                 }
             }
         }
     }//GEN-LAST:event_guardarActionPerformed
-    
+
     /**
      * @param args the command line arguments
      */
@@ -435,7 +457,7 @@ public class VentanaPaint extends javax.swing.JFrame {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-        */
+         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -453,7 +475,7 @@ public class VentanaPaint extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(VentanaPaint.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
