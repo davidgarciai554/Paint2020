@@ -6,6 +6,7 @@
 package codigo;
 
 import java.awt.Color;
+import codigo.VentanaPaint;
 
 /**
  *
@@ -41,8 +42,11 @@ public class colores extends javax.swing.JPanel {
         Cian = new javax.swing.JLabel();
         Azul = new javax.swing.JLabel();
         Violeta = new javax.swing.JLabel();
+        colorActual = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
+
+        setOpaque(false);
 
         Negro.setBackground(new java.awt.Color(0, 0, 0));
         Negro.setOpaque(true);
@@ -126,6 +130,9 @@ public class colores extends javax.swing.JPanel {
             }
         });
 
+        colorActual.setBackground(new java.awt.Color(0, 0, 0));
+        colorActual.setOpaque(true);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -146,10 +153,14 @@ public class colores extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Cian, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Azul, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Violeta, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(colorActual, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Azul, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Violeta, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,44 +176,55 @@ public class colores extends javax.swing.JPanel {
                     .addComponent(Rojo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Gris, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Negro, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(colorActual, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void NegroMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NegroMousePressed
-        colorSeleccionado= Color.black;
+        colorSeleccionado = Color.black;
+        colorActual.setBackground(colorSeleccionado);
     }//GEN-LAST:event_NegroMousePressed
 
     private void GrisMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GrisMousePressed
-        colorSeleccionado= Color.gray;
+        colorSeleccionado = Color.gray;
+        colorActual.setBackground(colorSeleccionado);
     }//GEN-LAST:event_GrisMousePressed
 
     private void NaranjaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NaranjaMousePressed
-        colorSeleccionado= Color.orange;
+        colorSeleccionado = Color.orange;
+        colorActual.setBackground(colorSeleccionado);
     }//GEN-LAST:event_NaranjaMousePressed
 
     private void RojoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RojoMousePressed
-        colorSeleccionado= Color.red;
+        colorSeleccionado = Color.red;
+        colorActual.setBackground(colorSeleccionado);
     }//GEN-LAST:event_RojoMousePressed
 
     private void CianMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CianMousePressed
-        colorSeleccionado= Color.cyan;
+        colorSeleccionado = Color.cyan;
+        colorActual.setBackground(colorSeleccionado);
     }//GEN-LAST:event_CianMousePressed
 
     private void AzulMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AzulMousePressed
-        colorSeleccionado= Color.blue;
+        colorSeleccionado = Color.blue;
+        colorActual.setBackground(colorSeleccionado);
     }//GEN-LAST:event_AzulMousePressed
 
     private void AmarilloMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AmarilloMousePressed
-        colorSeleccionado= Color.yellow;
+        colorSeleccionado = Color.yellow;
+        colorActual.setBackground(colorSeleccionado);
     }//GEN-LAST:event_AmarilloMousePressed
 
     private void VerdeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VerdeMousePressed
-        colorSeleccionado= Color.green;
+        colorSeleccionado = Color.green;
+        colorActual.setBackground(colorSeleccionado);
     }//GEN-LAST:event_VerdeMousePressed
 
     private void VioletaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VioletaMousePressed
-        colorSeleccionado= Color.MAGENTA;
+        colorSeleccionado = Color.MAGENTA;
+        colorActual.setBackground(colorSeleccionado);
     }//GEN-LAST:event_VioletaMousePressed
 
 
@@ -216,6 +238,7 @@ public class colores extends javax.swing.JPanel {
     private javax.swing.JLabel Rojo;
     private javax.swing.JLabel Verde;
     private javax.swing.JLabel Violeta;
+    public javax.swing.JLabel colorActual;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

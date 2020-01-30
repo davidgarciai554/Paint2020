@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
  */
 package codigo;
 
@@ -14,10 +14,17 @@ import codigo.formas.Rectangulo;
 import codigo.formas.Triangulo;
 import codigo.formas.creaRecta;
 import codigo.formas.Pincel;
+import codigo.formas.Pipeta;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Random;
+import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -25,26 +32,30 @@ import java.awt.image.BufferedImage;
  */
 public class VentanaPaint extends javax.swing.JFrame {
 
-    BufferedImage buffer, buffer2 = null;
+    Random aleatorio = new Random();
+
+    BufferedImage buffer, buffer2, _colorActual = null;
 
     Graphics2D bufferGraphics, bufferGraphics2, jPanelGraphics = null;
 
     Forma miForma = null;
     creaRecta recta = null;
-    Rectangulo rectangulo=null;
+    Rectangulo rectangulo = null;
     Pincel pincel = null;
+    Pipeta pipeta = null;
     Boolean relleno = false;
-    
-    String grosor="4";
+    String grosorGoma = "4";
+    String grosor = "4";
+    int grosorSpray = 3;
 
     /*
-     * Creates new form VentanaPaint
+    * Creates new form VentanaPaint
      */
     public VentanaPaint() {
         initComponents();
         inicializaBuffers();
         jDialog1.setSize(640, 450);
-        System.out.println("Viva hitler");
+        System.out.println("Viva karel");
     }
 
     private void inicializaBuffers() {
@@ -59,8 +70,9 @@ public class VentanaPaint extends javax.swing.JFrame {
         bufferGraphics.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
         bufferGraphics2.setColor(Color.WHITE);
         bufferGraphics2.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
-
         jPanelGraphics = (Graphics2D) jPanel1.getGraphics();
+
+
     }
 
     @Override
@@ -82,13 +94,24 @@ public class VentanaPaint extends javax.swing.JFrame {
         jColorChooser1 = new javax.swing.JColorChooser();
         Aceptar = new javax.swing.JButton();
         Cancelar = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jDialog2 = new javax.swing.JDialog();
+        jFileChooser1 = new javax.swing.JFileChooser();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         colores = new codigo.colores();
         herramientas1 = new codigo.herramientas();
         Relleno = new javax.swing.JCheckBox();
         masColores = new javax.swing.JButton();
-        jSlider1 = new javax.swing.JSlider();
+        jSlider = new javax.swing.JSlider();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        nuevo = new javax.swing.JMenuItem();
+        guardar = new javax.swing.JMenuItem();
+        abrir = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         Aceptar.setText("Aceptar");
         Aceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -131,7 +154,22 @@ public class VentanaPaint extends javax.swing.JFrame {
                 .addGap(32, 32, 32))
         );
 
+        javax.swing.GroupLayout jDialog2Layout = new javax.swing.GroupLayout(jDialog2.getContentPane());
+        jDialog2.getContentPane().setLayout(jDialog2Layout);
+        jDialog2Layout.setHorizontalGroup(
+            jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFileChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 853, Short.MAX_VALUE)
+        );
+        jDialog2Layout.setVerticalGroup(
+            jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFileChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
+        );
+
+        jMenuItem1.setText("jMenuItem1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 0, 0));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -151,7 +189,7 @@ public class VentanaPaint extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 644, Short.MAX_VALUE)
+            .addGap(0, 682, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,67 +206,109 @@ public class VentanaPaint extends javax.swing.JFrame {
         });
 
         masColores.setText("Mas colores");
+        masColores.setOpaque(false);
         masColores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 masColoresActionPerformed(evt);
             }
         });
 
-        jSlider1.setOrientation(javax.swing.JSlider.VERTICAL);
-        jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
+        jSlider.setOrientation(javax.swing.JSlider.VERTICAL);
+        jSlider.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jSlider1StateChanged(evt);
+                jSliderStateChanged(evt);
             }
         });
 
         jLabel1.setText("Grosor");
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Lienzo.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jMenu1.setText("Archivo");
+
+        nuevo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        nuevo.setText("Nuevo");
+        nuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nuevoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(nuevo);
+
+        guardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        guardar.setText("Guardar");
+        guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(guardar);
+
+        abrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        abrir.setText("Abrir");
+        abrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abrirActionPerformed(evt);
+            }
+        });
+        jMenu1.add(abrir);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Editar");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(colores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Relleno)
-                            .addComponent(herramientas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jSlider1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 86, Short.MAX_VALUE)
-                        .addComponent(colores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(masColores)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(herramientas1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Relleno))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
+                            .addComponent(masColores))))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(herramientas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-                        .addComponent(Relleno)
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)))
-                .addComponent(colores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(masColores)
-                .addGap(21, 21, 21))
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(herramientas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Relleno)
+                            .addComponent(masColores))
+                        .addGap(18, 18, 18)
+                        .addComponent(colores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         pack();
@@ -238,28 +318,35 @@ public class VentanaPaint extends javax.swing.JFrame {
         bufferGraphics.drawImage(buffer2, 0, 0, null);
         switch (herramientas1.formaElegida) {
             case 0:
-                pincel.dibujate(bufferGraphics2, evt.getX(), evt.getY(),grosor);
+                pincel.dibujate(bufferGraphics2, evt.getX(), evt.getY(), grosor);
                 break;
             case 1:
-                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
+                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(), grosor);
                 break;
             case 3:
-                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
+                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(), grosor);
                 break;
             case 5:
-                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
+                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(), grosor);
                 break;
             case 4:
-                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
+                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(), grosor);
                 break;
             case 7015:
-                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
+                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(), grosor);
                 break;
             case 6:
-                recta.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
+                recta.dibujate(bufferGraphics, evt.getX(), evt.getY(), grosor);
                 break;
             case 7:
-                rectangulo.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
+                rectangulo.dibujate(bufferGraphics, evt.getX(), evt.getY(), grosor);
+                break;
+            case 8:
+                pincel.dibujate(bufferGraphics2, evt.getX(), evt.getY(), grosorGoma);
+                break;
+            case 9:
+                bufferGraphics2.setColor(colores.colorSeleccionado);
+                bufferGraphics2.fillOval(evt.getX() - aleatorio.nextInt((int) Math.PI * (grosorSpray * grosorSpray)) / 4, evt.getY() - aleatorio.nextInt((int) Math.PI * (grosorSpray * grosorSpray)) / 4, grosorSpray, grosorSpray);
                 break;
 
         }
@@ -272,35 +359,46 @@ public class VentanaPaint extends javax.swing.JFrame {
         switch (herramientas1.formaElegida) {
             case 0:
                 pincel = new Pincel(evt.getX(), evt.getY(), colores.colorSeleccionado);
-                pincel.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
+                pincel.dibujate(bufferGraphics, evt.getX(), evt.getY(), grosor);
+                break;
             case 1:
                 miForma = new Circulo(evt.getX(), evt.getY(), 256, colores.colorSeleccionado, relleno);
-                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
+                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(), grosor);
                 break;
             case 3:
                 miForma = new Triangulo(evt.getX(), evt.getY(), 3, colores.colorSeleccionado, relleno);
-                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
+                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(), grosor);
                 break;
             case 5:
                 miForma = new Pentagono(evt.getX(), evt.getY(), 5, colores.colorSeleccionado, relleno);
-                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
+                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(), grosor);
                 break;
             case 4:
                 miForma = new Cuadrado(evt.getX(), evt.getY(), 4, colores.colorSeleccionado, relleno);
-                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
+                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(), grosor);
                 break;
             case 7015:
                 miForma = new Estrella(evt.getX(), evt.getY(), 256, colores.colorSeleccionado, relleno);
-                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
+                miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(), grosor);
                 break;
             case 6:
                 recta = new creaRecta(evt.getX(), evt.getY(), colores.colorSeleccionado);
-                recta.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
+                recta.dibujate(bufferGraphics, evt.getX(), evt.getY(), grosor);
                 break;
             case 7:
                 rectangulo = new Rectangulo(evt.getX(), evt.getY(), colores.colorSeleccionado, relleno);
-                rectangulo.dibujate(bufferGraphics, evt.getX(), evt.getY(),grosor);
+                rectangulo.dibujate(bufferGraphics, evt.getX(), evt.getY(), grosor);
                 break;
+            case 8:
+                pincel = new Pincel(evt.getX(), evt.getY(), Color.WHITE);
+                pincel.dibujate(bufferGraphics, evt.getX(), evt.getY(), grosorGoma);
+                break;
+            case 10: 
+                pipeta = new Pipeta(evt.getX(), evt.getY(),buffer2);
+                colores.colorSeleccionado=pipeta.cogeColor(evt.getX(), evt.getY(), buffer2, colores.colorSeleccionado);
+                colores.colorActual.setBackground(colores.colorSeleccionado);
+                break;
+                
         }
     }//GEN-LAST:event_jPanel1MousePressed
 
@@ -314,23 +412,23 @@ public class VentanaPaint extends javax.swing.JFrame {
 
     private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
 
-        if(herramientas1.formaElegida > 0 && herramientas1.formaElegida < 6 || herramientas1.formaElegida == 7015){
-            miForma.dibujate(bufferGraphics2, evt.getX(), evt.getY(),grosor);
-        }
-        else if(herramientas1.formaElegida == 6){
-            recta.dibujate(bufferGraphics2, evt.getX(), evt.getY(),grosor);
-        }
-        else if(herramientas1.formaElegida == 7){
-            rectangulo.dibujate(bufferGraphics2, evt.getX(), evt.getY(),grosor);
-        }
-        else if(herramientas1.formaElegida == 0){
-            pincel.dibujate(bufferGraphics2, evt.getX(), evt.getY(),grosor);
+        if (herramientas1.formaElegida > 0 && herramientas1.formaElegida < 6 || herramientas1.formaElegida == 7015) {
+            miForma.dibujate(bufferGraphics2, evt.getX(), evt.getY(), grosor);
+        } else if (herramientas1.formaElegida == 6) {
+            recta.dibujate(bufferGraphics2, evt.getX(), evt.getY(), grosor);
+        } else if (herramientas1.formaElegida == 7) {
+            rectangulo.dibujate(bufferGraphics2, evt.getX(), evt.getY(), grosor);
+        } else if (herramientas1.formaElegida == 0) {
+            pincel.dibujate(bufferGraphics2, evt.getX(), evt.getY(), grosor);
+        } else if (herramientas1.formaElegida == 8) {
+            pincel.dibujate(bufferGraphics2, evt.getX(), evt.getY(), grosorGoma);
         }
     }//GEN-LAST:event_jPanel1MouseReleased
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
         jDialog1.setVisible(false);
         colores.colorSeleccionado = jColorChooser1.getColor();
+        colores.colorActual.setBackground(colores.colorSeleccionado);
     }//GEN-LAST:event_AceptarActionPerformed
 
     private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
@@ -341,9 +439,70 @@ public class VentanaPaint extends javax.swing.JFrame {
         jDialog1.setVisible(true);
     }//GEN-LAST:event_masColoresActionPerformed
 
-    private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
-        grosor=Integer.toString(jSlider1.getValue()/15)+"f";
-    }//GEN-LAST:event_jSlider1StateChanged
+    private void jSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderStateChanged
+        grosor = Integer.toString(jSlider.getValue() / 10) + "f";
+        grosorGoma = Integer.toString(jSlider.getValue() / 7) + "f";
+        grosorSpray = (jSlider.getValue() / 15);
+        if (grosorSpray < 2) {
+            grosorSpray = 2;
+        }
+    }//GEN-LAST:event_jSliderStateChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        bufferGraphics.setColor(Color.WHITE);
+        bufferGraphics.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
+        bufferGraphics2.setColor(Color.WHITE);
+        bufferGraphics2.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
+        jPanelGraphics.drawImage(buffer, 0, 0, null);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
+        int seleccion = jFileChooser1.showSaveDialog(this);
+
+        if (seleccion == JFileChooser.APPROVE_OPTION) {//si entra aqui es porque han pulsado el boton guardar
+            File fichero = jFileChooser1.getSelectedFile();
+            String nombre = fichero.getName();
+            String extension = nombre.substring(nombre.lastIndexOf('.') + 1, nombre.length());
+
+            if (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png")) {
+                try {
+                    ImageIO.write(buffer, "png", fichero);
+                } catch (IOException e) {
+
+                }
+            }
+        }
+    }//GEN-LAST:event_guardarActionPerformed
+
+    private void nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoActionPerformed
+        bufferGraphics.setColor(Color.WHITE);
+        bufferGraphics.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
+        bufferGraphics2.setColor(Color.WHITE);
+        bufferGraphics2.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
+        jPanelGraphics.drawImage(buffer, 0, 0, null);
+    }//GEN-LAST:event_nuevoActionPerformed
+
+    private void abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirActionPerformed
+        jFileChooser1.setFileFilter(new FileNameExtensionFilter("arhivos de imagen jpg", "jpg"));
+        jFileChooser1.setFileFilter(new FileNameExtensionFilter("arhivos de imagen png", "png"));
+        int seleccion = jFileChooser1.showOpenDialog(this);
+        
+        if (seleccion == JFileChooser.APPROVE_OPTION){
+            File fichero = jFileChooser1.getSelectedFile();
+            String nombre = fichero.getName();
+            String extension = nombre.substring(nombre.lastIndexOf('.')+1, nombre.length());
+
+            if (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png")) {
+                try {
+                    
+                    bufferGraphics.drawImage(ImageIO.read(fichero), 0, 0, null);
+                    bufferGraphics2.drawImage(ImageIO.read(fichero), 0, 0, null);
+                    repaint(0,0,1,1);
+                } catch (IOException ex) {
+                }
+            }
+        }
+    }//GEN-LAST:event_abrirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -352,7 +511,7 @@ public class VentanaPaint extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+        * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -384,13 +543,24 @@ public class VentanaPaint extends javax.swing.JFrame {
     private javax.swing.JButton Aceptar;
     private javax.swing.JButton Cancelar;
     private javax.swing.JCheckBox Relleno;
+    private javax.swing.JMenuItem abrir;
     private codigo.colores colores;
+    private javax.swing.JMenuItem guardar;
     private codigo.herramientas herramientas1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JDialog jDialog1;
+    private javax.swing.JDialog jDialog2;
+    private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSlider jSlider1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSlider jSlider;
     private javax.swing.JButton masColores;
+    private javax.swing.JMenuItem nuevo;
     // End of variables declaration//GEN-END:variables
 }
