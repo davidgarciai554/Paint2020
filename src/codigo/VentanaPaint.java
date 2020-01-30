@@ -18,9 +18,11 @@ import codigo.formas.Pipeta;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
@@ -422,9 +424,33 @@ public class VentanaPaint extends javax.swing.JFrame {
             pincel.dibujate(bufferGraphics2, evt.getX(), evt.getY(), grosor);
         } else if (herramientas1.formaElegida == 8) {
             pincel.dibujate(bufferGraphics2, evt.getX(), evt.getY(), grosorGoma);
+        } else if (herramientas1.formaElegida == 11){
+            int xFlood = evt.getX();
+            int yFlood = evt.getY();
+            int rgb = buffer.getRGB(xFlood, yFlood);
+            Color c = new Color(rgb);
+            fill(xFlood, yFlood, c, colores.colorSeleccionado);
+            jPanelGraphics.drawImage(buffer,0,0,null);
+            bufferGraphics2.drawImage(buffer, 0, 0, null);
         }
     }//GEN-LAST:event_jPanel1MouseReleased
 
+    public <Queue> void fill (int x, int y, Color colorBase, Color colorNuevo){
+        java.util.Queue<Point> queue = new LinkedList<>();
+        queue.add(new Point(x, y));
+
+        while (!queue.isEmpty()) {
+            Point pt = queue.remove();
+            if(pt.x < 0 || pt.x >= buffer.getWidth() || pt.y < 0 || pt.y >= buffer.getHeight() || colorBase.getRGB() != buffer.getRGB(pt.x, pt.y)) continue;
+            buffer.setRGB(pt.x, pt.y, colorNuevo.getRGB());
+            //jPanelGraphics.drawImage(buffer, 0, 0, null);
+            queue.add(new Point(pt.x - 1, pt.y));
+            queue.add(new Point(pt.x + 1, pt.y));
+            queue.add(new Point(pt.x, pt.y - 1));
+            queue.add(new Point(pt.x, pt.y + 1));
+        }
+    }
+    
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
         jDialog1.setVisible(false);
         colores.colorSeleccionado = jColorChooser1.getColor();
