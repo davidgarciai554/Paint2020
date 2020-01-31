@@ -5,9 +5,7 @@
  */
 package codigo.formas;
 
-import codigo.colores;
 import java.awt.Color;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 /**
@@ -27,7 +25,6 @@ public class Pipeta {
     public Color cogeColor(int posX, int posY, BufferedImage buffer, Color color) {
         color = new Color(buffer.getRGB(posX, posY));
         return color;
-
     }
 
 }

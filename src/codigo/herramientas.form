@@ -72,6 +72,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="Cubo" min="-2" pref="50" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="texto" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="18" max="32767" attributes="0"/>
           </Group>
@@ -110,7 +111,9 @@
                   <Component id="Pipeta" min="-2" pref="50" max="-2" attributes="0"/>
                   <Component id="Cubo" min="-2" pref="50" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="106" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="texto" min="-2" pref="50" max="-2" attributes="0"/>
+              <EmptySpace pref="50" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -234,6 +237,16 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CuboActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="texto">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/imagenes/Texto.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textoActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
