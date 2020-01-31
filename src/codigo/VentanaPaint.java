@@ -448,12 +448,6 @@ public class VentanaPaint extends javax.swing.JFrame {
                 colores.colorSeleccionado = pipeta.cogeColor(evt.getX(), evt.getY(), buffer2, colores.colorSeleccionado);
                 colores.colorActual.setBackground(colores.colorSeleccionado);
                 break;
-            case 12:
-//                _texto = new escribeTexto(evt.getX(), evt.getY(), texto);
-//                _texto.escribe(jPanelGraphics, evt.getX(), evt.getY(), texto);
-//                _texto.escribe(bufferGraphics, evt.getX(), evt.getY(), texto);
-//                _texto.escribe(bufferGraphics2, evt.getX(), evt.getY(), texto);
-                break;
         }
 
     }//GEN-LAST:event_jPanel1MousePressed
@@ -490,13 +484,11 @@ public class VentanaPaint extends javax.swing.JFrame {
 //            escribeTexto.setLocation(evt.getX(), evt.getY());
 //            escribeTexto.setVisible(true);
             _texto = new escribeTexto(evt.getX(), evt.getY(), texto);
-            _texto.escribe(jPanelGraphics, evt.getX(), evt.getY(), texto);
-            _texto.escribe(bufferGraphics, evt.getX(), evt.getY(), texto);
-            _texto.escribe(bufferGraphics2, evt.getX(), evt.getY(), texto);
-            jPanelGraphics.drawImage(buffer, 0, 0, null);
-            bufferGraphics2.drawImage(buffer, 0, 0, null);
+            _texto.escribe(jPanelGraphics, evt.getX(), evt.getY(), texto,colores.colorSeleccionado);
+            _texto.escribe(bufferGraphics, evt.getX(), evt.getY(), texto,colores.colorSeleccionado);
+            _texto.escribe(bufferGraphics2, evt.getX(), evt.getY(), texto,colores.colorSeleccionado);
             jPanelGraphics.drawImage(buffer2, 0, 0, null);
-            bufferGraphics.drawImage(buffer2, 0, 0, null);
+            System.out.println("eyyyy");
         }
     }//GEN-LAST:event_jPanel1MouseReleased
 

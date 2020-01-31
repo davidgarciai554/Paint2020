@@ -5,11 +5,11 @@
  */
 package codigo.formas;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 
 /**
  *
@@ -26,10 +26,11 @@ public class escribeTexto {
         texto = _texto;
     }
     
-    public void escribe(Graphics2D g2,int posX ,int posY,String texto){
+    public void escribe(Graphics2D g2,int posX ,int posY,String texto,Color color){
         Font font = new Font("Tahoma", Font.PLAIN, 11);
         FontRenderContext frc = new FontRenderContext(null, true, true);
         Rectangle2D bounds = font.getStringBounds(texto, frc);
+        g2.setColor(color);
         g2.drawString(texto, (float) posX, (float) posY);
 //        g2.dispose();
         
