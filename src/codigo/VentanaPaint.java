@@ -50,7 +50,10 @@ public class VentanaPaint extends javax.swing.JFrame {
     Boolean relleno = false;
     escribeTexto _texto = null;
 
-    String texto = "Hola";
+    int Xtexto = 0;
+    int Ytexto = 0;
+
+    String texto = "";
 
     String grosorGoma = "4";
     String grosor = "4";
@@ -481,13 +484,10 @@ public class VentanaPaint extends javax.swing.JFrame {
             jPanelGraphics.drawImage(buffer, 0, 0, null);
             bufferGraphics2.drawImage(buffer, 0, 0, null);
         } else if (herramientas1.formaElegida == 12) {
-//            escribeTexto.setLocation(evt.getX(), evt.getY());
-//            escribeTexto.setVisible(true);
-            _texto = new escribeTexto(evt.getX(), evt.getY(), texto);
-            _texto.escribe(jPanelGraphics, evt.getX(), evt.getY(), texto,colores.colorSeleccionado);
-            _texto.escribe(bufferGraphics, evt.getX(), evt.getY(), texto,colores.colorSeleccionado);
-            _texto.escribe(bufferGraphics2, evt.getX(), evt.getY(), texto,colores.colorSeleccionado);
-            jPanelGraphics.drawImage(buffer2, 0, 0, null);
+            escribeTexto.setLocation(evt.getX(), evt.getY());
+            escribeTexto.setVisible(true);
+            Xtexto=evt.getX();
+            Ytexto=evt.getY();
             System.out.println("eyyyy");
         }
     }//GEN-LAST:event_jPanel1MouseReleased
@@ -592,10 +592,16 @@ public class VentanaPaint extends javax.swing.JFrame {
     private void botonImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonImagenActionPerformed
         texto = jTextArea1.getText();
         escribeTexto.setVisible(false);
-        jPanelGraphics.drawImage(buffer, 0, 0, null);
-        bufferGraphics2.drawImage(buffer, 0, 0, null);
         System.out.println(texto);
+        _texto = new escribeTexto(Xtexto, Ytexto, texto);
+        _texto.escribe(jPanelGraphics, Xtexto, Ytexto, texto, colores.colorSeleccionado);
+        _texto.escribe(bufferGraphics, Xtexto, Ytexto, texto, colores.colorSeleccionado);
+        _texto.escribe(bufferGraphics2, Xtexto, Ytexto, texto, colores.colorSeleccionado);
+        jPanelGraphics.drawImage(buffer2, 0, 0, null);
     }//GEN-LAST:event_botonImagenActionPerformed
+    public void superTexto() {
+
+    }
 
     /**
      * @param args the command line arguments
