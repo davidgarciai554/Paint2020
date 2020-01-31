@@ -15,12 +15,16 @@ import codigo.formas.Triangulo;
 import codigo.formas.creaRecta;
 import codigo.formas.Pincel;
 import codigo.formas.Pipeta;
+import codigo.formas.escribeTexto;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
@@ -44,6 +48,13 @@ public class VentanaPaint extends javax.swing.JFrame {
     Pincel pincel = null;
     Pipeta pipeta = null;
     Boolean relleno = false;
+    escribeTexto _texto = null;
+
+    int Xtexto = 0;
+    int Ytexto = 0;
+
+    String texto = "";
+
     String grosorGoma = "4";
     String grosor = "4";
     int grosorSpray = 3;
@@ -55,6 +66,7 @@ public class VentanaPaint extends javax.swing.JFrame {
         initComponents();
         inicializaBuffers();
         jDialog1.setSize(640, 450);
+        escribeTexto.setSize(402, 93);
         System.out.println("Viva karel");
     }
 
@@ -71,7 +83,6 @@ public class VentanaPaint extends javax.swing.JFrame {
         bufferGraphics2.setColor(Color.WHITE);
         bufferGraphics2.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
         jPanelGraphics = (Graphics2D) jPanel1.getGraphics();
-
 
     }
 
@@ -98,6 +109,11 @@ public class VentanaPaint extends javax.swing.JFrame {
         jDialog2 = new javax.swing.JDialog();
         jFileChooser1 = new javax.swing.JFileChooser();
         jMenuItem1 = new javax.swing.JMenuItem();
+        escribeTexto = new javax.swing.JDialog();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        botonImagen = new javax.swing.JButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
         jPanel1 = new javax.swing.JPanel();
         colores = new codigo.colores();
         herramientas1 = new codigo.herramientas();
@@ -166,6 +182,41 @@ public class VentanaPaint extends javax.swing.JFrame {
         );
 
         jMenuItem1.setText("jMenuItem1");
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        botonImagen.setText("Aceptar");
+        botonImagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonImagenActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout escribeTextoLayout = new javax.swing.GroupLayout(escribeTexto.getContentPane());
+        escribeTexto.getContentPane().setLayout(escribeTextoLayout);
+        escribeTextoLayout.setHorizontalGroup(
+            escribeTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(escribeTextoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botonImagen)
+                .addContainerGap(44, Short.MAX_VALUE))
+        );
+        escribeTextoLayout.setVerticalGroup(
+            escribeTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(escribeTextoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(escribeTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(botonImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jToggleButton1.setText("jToggleButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -289,25 +340,25 @@ public class VentanaPaint extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(herramientas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Relleno)
-                    .addComponent(masColores))
-                .addGap(18, 18, 18)
-                .addComponent(colores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(110, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(herramientas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Relleno)
+                            .addComponent(masColores))
+                        .addGap(18, 18, 18)
+                        .addComponent(colores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -348,7 +399,9 @@ public class VentanaPaint extends javax.swing.JFrame {
                 bufferGraphics2.setColor(colores.colorSeleccionado);
                 bufferGraphics2.fillOval(evt.getX() - aleatorio.nextInt((int) Math.PI * (grosorSpray * grosorSpray)) / 4, evt.getY() - aleatorio.nextInt((int) Math.PI * (grosorSpray * grosorSpray)) / 4, grosorSpray, grosorSpray);
                 break;
+            case 12:
 
+                break;
         }
         repaint(0, 0, 1, 1);
 
@@ -393,13 +446,13 @@ public class VentanaPaint extends javax.swing.JFrame {
                 pincel = new Pincel(evt.getX(), evt.getY(), Color.WHITE);
                 pincel.dibujate(bufferGraphics, evt.getX(), evt.getY(), grosorGoma);
                 break;
-            case 10: 
-                pipeta = new Pipeta(evt.getX(), evt.getY(),buffer2);
-                colores.colorSeleccionado=pipeta.cogeColor(evt.getX(), evt.getY(), buffer2, colores.colorSeleccionado);
+            case 10:
+                pipeta = new Pipeta(evt.getX(), evt.getY(), buffer2);
+                colores.colorSeleccionado = pipeta.cogeColor(evt.getX(), evt.getY(), buffer2, colores.colorSeleccionado);
                 colores.colorActual.setBackground(colores.colorSeleccionado);
                 break;
-                
         }
+
     }//GEN-LAST:event_jPanel1MousePressed
 
     private void RellenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RellenoActionPerformed
@@ -422,8 +475,40 @@ public class VentanaPaint extends javax.swing.JFrame {
             pincel.dibujate(bufferGraphics2, evt.getX(), evt.getY(), grosor);
         } else if (herramientas1.formaElegida == 8) {
             pincel.dibujate(bufferGraphics2, evt.getX(), evt.getY(), grosorGoma);
+        } else if (herramientas1.formaElegida == 11) {
+            int xFlood = evt.getX();
+            int yFlood = evt.getY();
+            int rgb = buffer.getRGB(xFlood, yFlood);
+            Color c = new Color(rgb);
+            fill(xFlood, yFlood, c, colores.colorSeleccionado);
+            jPanelGraphics.drawImage(buffer, 0, 0, null);
+            bufferGraphics2.drawImage(buffer, 0, 0, null);
+        } else if (herramientas1.formaElegida == 12) {
+            escribeTexto.setLocation(evt.getX(), evt.getY());
+            escribeTexto.setVisible(true);
+            Xtexto=evt.getX();
+            Ytexto=evt.getY();
+            System.out.println("eyyyy");
         }
     }//GEN-LAST:event_jPanel1MouseReleased
+
+    public <Queue> void fill(int x, int y, Color colorBase, Color colorNuevo) {
+        java.util.Queue<Point> queue = new LinkedList<>();
+        queue.add(new Point(x, y));
+
+        while (!queue.isEmpty()) {
+            Point pt = queue.remove();
+            if (pt.x < 0 || pt.x >= buffer.getWidth() || pt.y < 0 || pt.y >= buffer.getHeight() || colorBase.getRGB() != buffer.getRGB(pt.x, pt.y)) {
+                continue;
+            }
+            buffer.setRGB(pt.x, pt.y, colorNuevo.getRGB());
+            //jPanelGraphics.drawImage(buffer, 0, 0, null);
+            queue.add(new Point(pt.x - 1, pt.y));
+            queue.add(new Point(pt.x + 1, pt.y));
+            queue.add(new Point(pt.x, pt.y - 1));
+            queue.add(new Point(pt.x, pt.y + 1));
+        }
+    }
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
         jDialog1.setVisible(false);
@@ -486,23 +571,37 @@ public class VentanaPaint extends javax.swing.JFrame {
         jFileChooser1.setFileFilter(new FileNameExtensionFilter("arhivos de imagen jpg", "jpg"));
         jFileChooser1.setFileFilter(new FileNameExtensionFilter("arhivos de imagen png", "png"));
         int seleccion = jFileChooser1.showOpenDialog(this);
-        
-        if (seleccion == JFileChooser.APPROVE_OPTION){
+
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
             File fichero = jFileChooser1.getSelectedFile();
             String nombre = fichero.getName();
-            String extension = nombre.substring(nombre.lastIndexOf('.')+1, nombre.length());
+            String extension = nombre.substring(nombre.lastIndexOf('.') + 1, nombre.length());
 
             if (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png")) {
                 try {
-                    
+
                     bufferGraphics.drawImage(ImageIO.read(fichero), 0, 0, null);
                     bufferGraphics2.drawImage(ImageIO.read(fichero), 0, 0, null);
-                    repaint(0,0,1,1);
+                    repaint(0, 0, 1, 1);
                 } catch (IOException ex) {
                 }
             }
         }
     }//GEN-LAST:event_abrirActionPerformed
+
+    private void botonImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonImagenActionPerformed
+        texto = jTextArea1.getText();
+        escribeTexto.setVisible(false);
+        System.out.println(texto);
+        _texto = new escribeTexto(Xtexto, Ytexto, texto);
+        _texto.escribe(jPanelGraphics, Xtexto, Ytexto, texto, colores.colorSeleccionado);
+        _texto.escribe(bufferGraphics, Xtexto, Ytexto, texto, colores.colorSeleccionado);
+        _texto.escribe(bufferGraphics2, Xtexto, Ytexto, texto, colores.colorSeleccionado);
+        jPanelGraphics.drawImage(buffer2, 0, 0, null);
+    }//GEN-LAST:event_botonImagenActionPerformed
+    public void superTexto() {
+
+    }
 
     /**
      * @param args the command line arguments
@@ -544,7 +643,9 @@ public class VentanaPaint extends javax.swing.JFrame {
     private javax.swing.JButton Cancelar;
     private javax.swing.JCheckBox Relleno;
     private javax.swing.JMenuItem abrir;
+    private javax.swing.JButton botonImagen;
     private codigo.colores colores;
+    private javax.swing.JDialog escribeTexto;
     private javax.swing.JMenuItem guardar;
     private codigo.herramientas herramientas1;
     private javax.swing.JButton jButton1;
@@ -558,8 +659,11 @@ public class VentanaPaint extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSlider jSlider;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JButton masColores;
     private javax.swing.JMenuItem nuevo;
     // End of variables declaration//GEN-END:variables
