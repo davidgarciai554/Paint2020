@@ -58,6 +58,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     String grosorGoma = "4";
     String grosor = "4";
     int grosorSpray = 3;
+    int tamañoLetra=100;
 
     /*
     * Creates new form VentanaPaint
@@ -488,7 +489,6 @@ public class VentanaPaint extends javax.swing.JFrame {
             escribeTexto.setVisible(true);
             Xtexto=evt.getX();
             Ytexto=evt.getY();
-            System.out.println("eyyyy");
         }
     }//GEN-LAST:event_jPanel1MouseReleased
 
@@ -531,6 +531,7 @@ public class VentanaPaint extends javax.swing.JFrame {
         if (grosorSpray < 2) {
             grosorSpray = 2;
         }
+        tamañoLetra=jSlider.getValue() *2;
     }//GEN-LAST:event_jSliderStateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -592,16 +593,14 @@ public class VentanaPaint extends javax.swing.JFrame {
     private void botonImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonImagenActionPerformed
         texto = jTextArea1.getText();
         escribeTexto.setVisible(false);
-        System.out.println(texto);
         _texto = new escribeTexto(Xtexto, Ytexto, texto);
-        _texto.escribe(jPanelGraphics, Xtexto, Ytexto, texto, colores.colorSeleccionado);
-        _texto.escribe(bufferGraphics, Xtexto, Ytexto, texto, colores.colorSeleccionado);
-        _texto.escribe(bufferGraphics2, Xtexto, Ytexto, texto, colores.colorSeleccionado);
+        _texto.escribe(jPanelGraphics, Xtexto, Ytexto, texto, colores.colorSeleccionado,tamañoLetra);
+        _texto.escribe(bufferGraphics, Xtexto, Ytexto, texto, colores.colorSeleccionado,tamañoLetra);
+        _texto.escribe(bufferGraphics2, Xtexto, Ytexto, texto, colores.colorSeleccionado,tamañoLetra);
         jPanelGraphics.drawImage(buffer2, 0, 0, null);
+        jTextArea1.setText("");
     }//GEN-LAST:event_botonImagenActionPerformed
-    public void superTexto() {
 
-    }
 
     /**
      * @param args the command line arguments
