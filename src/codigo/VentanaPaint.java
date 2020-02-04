@@ -598,6 +598,7 @@ public class VentanaPaint extends javax.swing.JFrame {
         _texto.escribe(bufferGraphics, Xtexto, Ytexto, texto, colores.colorSeleccionado,tamañoLetra);
         _texto.escribe(bufferGraphics2, Xtexto, Ytexto, texto, colores.colorSeleccionado,tamañoLetra);
         jPanelGraphics.drawImage(buffer2, 0, 0, null);
+        jTextArea1.setText("");
     }//GEN-LAST:event_botonImagenActionPerformed
 
 
