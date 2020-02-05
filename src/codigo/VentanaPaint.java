@@ -492,8 +492,8 @@ public class VentanaPaint extends javax.swing.JFrame {
             int rgb = buffer.getRGB(xFlood, yFlood);
             Color c = new Color(rgb);
             fill(xFlood, yFlood, c, colores.colorSeleccionado);
-            jPanelGraphics.drawImage(buffer, 0, 0, null);
-            bufferGraphics2.drawImage(buffer, 0, 0, null);
+            jPanelGraphics.drawImage(buffer2, 0, 0, null);
+            bufferGraphics2.drawImage(buffer2, 0, 0, null);
         } else if (herramientas1.formaElegida == 12) {
             escribeTexto.setLocation(evt.getX(), evt.getY());
             escribeTexto.setVisible(true);
@@ -514,10 +514,10 @@ public class VentanaPaint extends javax.swing.JFrame {
 
         while (!queue.isEmpty()) {
             Point pt = queue.remove();
-            if (pt.x < 0 || pt.x >= buffer.getWidth() || pt.y < 0 || pt.y >= buffer.getHeight() || colorBase.getRGB() != buffer.getRGB(pt.x, pt.y)) {
+            if (pt.x < 0 || pt.x >= buffer2.getWidth() || pt.y < 0 || pt.y >= buffer2.getHeight() || colorBase.getRGB() != buffer2.getRGB(pt.x, pt.y)) {
                 continue;
             }
-            buffer.setRGB(pt.x, pt.y, colorNuevo.getRGB());
+            buffer2.setRGB(pt.x, pt.y, colorNuevo.getRGB());
             //jPanelGraphics.drawImage(buffer, 0, 0, null);
             queue.add(new Point(pt.x - 1, pt.y));
             queue.add(new Point(pt.x + 1, pt.y));
@@ -556,6 +556,10 @@ public class VentanaPaint extends javax.swing.JFrame {
         bufferGraphics2.setColor(Color.WHITE);
         bufferGraphics2.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
         jPanelGraphics.drawImage(buffer, 0, 0, null);
+        buffer3 = (BufferedImage) jPanel1.createImage(jPanel1.getWidth(), jPanel1.getHeight());
+        bufferGraphics3 = buffer3.createGraphics();
+        bufferGraphics3.drawImage(buffer2, null, this);
+        buffers.add(buffer3);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
