@@ -14,14 +14,14 @@ import java.awt.Polygon;
  *
  * @author kahzerx
  */
-public class creaRecta extends Polygon {
+public class Recta extends Polygon {
 
     public Color color = null;
     //coordenadas del centro de la forma
     public int x = 0;
     public int y = 0;
 
-    public creaRecta(int posX, int posY, Color _color) {
+    public Recta(int posX, int posY, Color _color) {
         this.x = posX;
         this.y = posY;
         color = _color;

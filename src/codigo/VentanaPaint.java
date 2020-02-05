@@ -12,7 +12,7 @@ import codigo.formas.Forma;
 import codigo.formas.Pentagono;
 import codigo.formas.Rectangulo;
 import codigo.formas.Triangulo;
-import codigo.formas.creaRecta;
+import codigo.formas.Recta;
 import codigo.formas.Pincel;
 import codigo.formas.Pipeta;
 import codigo.formas.escribeTexto;
@@ -43,7 +43,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     Graphics2D bufferGraphics, bufferGraphics2, bufferGraphics3, jPanelGraphics = null;
 
     Forma miForma = null;
-    creaRecta recta = null;
+    Recta recta = null;
     Rectangulo rectangulo = null;
     Pincel pincel = null;
     Pipeta pipeta = null;
@@ -450,7 +450,7 @@ public class VentanaPaint extends javax.swing.JFrame {
                 miForma.dibujate(bufferGraphics, evt.getX(), evt.getY(), grosor);
                 break;
             case 6:
-                recta = new creaRecta(evt.getX(), evt.getY(), colores.colorSeleccionado);
+                recta = new Recta(evt.getX(), evt.getY(), colores.colorSeleccionado);
                 recta.dibujate(bufferGraphics, evt.getX(), evt.getY(), grosor);
                 break;
             case 7:
