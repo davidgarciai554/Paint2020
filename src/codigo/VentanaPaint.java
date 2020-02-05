@@ -21,9 +21,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 import javax.imageio.ImageIO;
@@ -38,9 +38,9 @@ public class VentanaPaint extends javax.swing.JFrame {
 
     Random aleatorio = new Random();
 
-    BufferedImage buffer, buffer2, _colorActual = null;
+    BufferedImage buffer, buffer2, buffer3, _colorActual = null;
 
-    Graphics2D bufferGraphics, bufferGraphics2, jPanelGraphics = null;
+    Graphics2D bufferGraphics, bufferGraphics2, bufferGraphics3, jPanelGraphics = null;
 
     Forma miForma = null;
     creaRecta recta = null;
@@ -59,6 +59,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     String grosor = "4";
     int grosorSpray = 3;
     int tamañoLetra=100;
+    ArrayList <BufferedImage> buffers = new ArrayList<>();
 
     /*
     * Creates new form VentanaPaint
@@ -75,16 +76,19 @@ public class VentanaPaint extends javax.swing.JFrame {
         // creo una imagen del mismo alto y ancho que el jPanel
         buffer = (BufferedImage) jPanel1.createImage(jPanel1.getWidth(), jPanel1.getHeight());//El buffer es el lienzo sobre el que pintaremos
         buffer2 = (BufferedImage) jPanel1.createImage(jPanel1.getWidth(), jPanel1.getHeight());
+        buffer3 = (BufferedImage) jPanel1.createImage(jPanel1.getWidth(), jPanel1.getHeight());
         //Creo una imagen modificable
         bufferGraphics = buffer.createGraphics();
         bufferGraphics2 = buffer2.createGraphics();
+        bufferGraphics3 = buffer3.createGraphics();
         //inicializo el buffer para que se pinte de blanco entero
         bufferGraphics.setColor(Color.WHITE);
         bufferGraphics.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
         bufferGraphics2.setColor(Color.WHITE);
         bufferGraphics2.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
         jPanelGraphics = (Graphics2D) jPanel1.getGraphics();
-
+        bufferGraphics3.drawImage(buffer2, null, this);
+        buffers.add(buffer3);
     }
 
     @Override
@@ -129,6 +133,7 @@ public class VentanaPaint extends javax.swing.JFrame {
         guardar = new javax.swing.JMenuItem();
         abrir = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         Aceptar.setText("Aceptar");
         Aceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -258,7 +263,6 @@ public class VentanaPaint extends javax.swing.JFrame {
         });
 
         masColores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Paleta.png"))); // NOI18N
-        masColores.setOpaque(false);
         masColores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 masColoresActionPerformed(evt);
@@ -313,6 +317,16 @@ public class VentanaPaint extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Editar");
+
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem2.setText("Deshacer");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -457,11 +471,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MousePressed
 
     private void RellenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RellenoActionPerformed
-        if (Relleno.isSelected()) {
-            relleno = true;
-        } else {
-            relleno = false;
-        }
+        relleno = Relleno.isSelected();
     }//GEN-LAST:event_RellenoActionPerformed
 
     private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
@@ -489,6 +499,12 @@ public class VentanaPaint extends javax.swing.JFrame {
             escribeTexto.setVisible(true);
             Xtexto=evt.getX();
             Ytexto=evt.getY();
+        }
+        if (herramientas1.formaElegida != 12) {
+            buffer3 = (BufferedImage) jPanel1.createImage(jPanel1.getWidth(), jPanel1.getHeight());
+            bufferGraphics3 = buffer3.createGraphics();
+            bufferGraphics3.drawImage(buffer2, null, this);
+            buffers.add(buffer3);
         }
     }//GEN-LAST:event_jPanel1MouseReleased
 
@@ -599,7 +615,19 @@ public class VentanaPaint extends javax.swing.JFrame {
         _texto.escribe(bufferGraphics2, Xtexto, Ytexto, texto, colores.colorSeleccionado,tamañoLetra);
         jPanelGraphics.drawImage(buffer2, 0, 0, null);
         jTextArea1.setText("");
+        buffer3 = (BufferedImage) jPanel1.createImage(jPanel1.getWidth(), jPanel1.getHeight());
+        bufferGraphics3 = buffer3.createGraphics();
+        bufferGraphics3.drawImage(buffer2, null, this);
+        buffers.add(buffer3);
     }//GEN-LAST:event_botonImagenActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        if (buffers.size() > 1){
+            bufferGraphics2.drawImage(buffers.get(buffers.size() - 2), 0, 0, null);
+            buffers.remove(buffers.size() - 1);
+            jPanelGraphics.drawImage(buffer2, 0, 0, null);
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
 
     /**
@@ -657,6 +685,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
