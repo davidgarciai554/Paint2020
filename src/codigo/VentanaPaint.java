@@ -507,6 +507,7 @@ public class VentanaPaint extends javax.swing.JFrame {
             bufferGraphics3.drawImage(buffer2, null, this);
             buffers.add(buffer3);
         }
+        jPanelGraphics.drawImage(buffer2, 0, 0, null);
     }//GEN-LAST:event_jPanel1MouseReleased
 
     public <Queue> void fill(int x, int y, Color colorBase, Color colorNuevo) {//relleno usando recursion
