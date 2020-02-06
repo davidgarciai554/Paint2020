@@ -1,7 +1,7 @@
 /*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
+ *
+ * Ventana principal del Paint
+ *
  */
 package codigo;
 
@@ -38,9 +38,9 @@ public class VentanaPaint extends javax.swing.JFrame {
 
     Random aleatorio = new Random();
 
-    BufferedImage buffer, buffer2, buffer3, _colorActual = null;
+    BufferedImage buffer, buffer2, buffer3, _colorActual = null;//inicializo los buffers
 
-    Graphics2D bufferGraphics, bufferGraphics2, bufferGraphics3, jPanelGraphics = null;
+    Graphics2D bufferGraphics, bufferGraphics2, bufferGraphics3, jPanelGraphics = null;//inicializo los graphics
 
     Forma miForma = null;
     creaRecta recta = null;
@@ -59,6 +59,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     String grosor = "4";
     int grosorSpray = 3;
     int tamañoLetra=100;
+    
     ArrayList <BufferedImage> buffers = new ArrayList<>();
 
     /*
@@ -117,7 +118,7 @@ public class VentanaPaint extends javax.swing.JFrame {
         escribeTexto = new javax.swing.JDialog();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        botonImagen = new javax.swing.JButton();
+        botonTexto = new javax.swing.JButton();
         jToggleButton1 = new javax.swing.JToggleButton();
         jPanel1 = new javax.swing.JPanel();
         colores = new codigo.colores();
@@ -194,10 +195,10 @@ public class VentanaPaint extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        botonImagen.setText("Aceptar");
-        botonImagen.addActionListener(new java.awt.event.ActionListener() {
+        botonTexto.setText("Aceptar");
+        botonTexto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonImagenActionPerformed(evt);
+                botonTextoActionPerformed(evt);
             }
         });
 
@@ -209,7 +210,7 @@ public class VentanaPaint extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonImagen)
+                .addComponent(botonTexto)
                 .addContainerGap(44, Short.MAX_VALUE))
         );
         escribeTextoLayout.setVerticalGroup(
@@ -218,7 +219,7 @@ public class VentanaPaint extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(escribeTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(botonImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
+                    .addComponent(botonTexto, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -382,7 +383,7 @@ public class VentanaPaint extends javax.swing.JFrame {
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
         bufferGraphics.drawImage(buffer2, 0, 0, null);
-        switch (herramientas1.formaElegida) {
+        switch (herramientas1.formaElegida) {//un switch con todas las diferentes herramientas en el dragged
             case 0:
                 pincel.dibujate(bufferGraphics2, evt.getX(), evt.getY(), grosor);
                 break;
@@ -424,7 +425,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MouseDragged
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
-        switch (herramientas1.formaElegida) {
+        switch (herramientas1.formaElegida) {//un switch con todas las diferentes herramientas en el pressed
             case 0:
                 pincel = new Pincel(evt.getX(), evt.getY(), colores.colorSeleccionado);
                 pincel.dibujate(bufferGraphics, evt.getX(), evt.getY(), grosor);
@@ -475,7 +476,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     }//GEN-LAST:event_RellenoActionPerformed
 
     private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
-
+        //un if else con todas las diferentes herramientas
         if (herramientas1.formaElegida > 0 && herramientas1.formaElegida < 6 || herramientas1.formaElegida == 7015) {
             miForma.dibujate(bufferGraphics2, evt.getX(), evt.getY(), grosor);
         } else if (herramientas1.formaElegida == 6) {
@@ -495,7 +496,7 @@ public class VentanaPaint extends javax.swing.JFrame {
             jPanelGraphics.drawImage(buffer2, 0, 0, null);
             bufferGraphics2.drawImage(buffer2, 0, 0, null);
         } else if (herramientas1.formaElegida == 12) {
-            escribeTexto.setLocation(evt.getX(), evt.getY());
+            escribeTexto.setLocation(evt.getX(), evt.getY());//aparece el text area en el lugar
             escribeTexto.setVisible(true);
             Xtexto=evt.getX();
             Ytexto=evt.getY();
@@ -508,7 +509,7 @@ public class VentanaPaint extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jPanel1MouseReleased
 
-    public <Queue> void fill(int x, int y, Color colorBase, Color colorNuevo) {
+    public <Queue> void fill(int x, int y, Color colorBase, Color colorNuevo) {//relleno usando recursion
         java.util.Queue<Point> queue = new LinkedList<>();
         queue.add(new Point(x, y));
 
@@ -528,7 +529,7 @@ public class VentanaPaint extends javax.swing.JFrame {
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
         jDialog1.setVisible(false);
-        colores.colorSeleccionado = jColorChooser1.getColor();
+        colores.colorSeleccionado = jColorChooser1.getColor();//pone el color seleccionado en la variable
         colores.colorActual.setBackground(colores.colorSeleccionado);
     }//GEN-LAST:event_AceptarActionPerformed
 
@@ -551,11 +552,13 @@ public class VentanaPaint extends javax.swing.JFrame {
     }//GEN-LAST:event_jSliderStateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //pone el jPanel en blanco es decir borra todo
         bufferGraphics.setColor(Color.WHITE);
         bufferGraphics.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
         bufferGraphics2.setColor(Color.WHITE);
         bufferGraphics2.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
         jPanelGraphics.drawImage(buffer, 0, 0, null);
+        //para que funcione el ctrl+z despues de borrar todo
         buffer3 = (BufferedImage) jPanel1.createImage(jPanel1.getWidth(), jPanel1.getHeight());
         bufferGraphics3 = buffer3.createGraphics();
         bufferGraphics3.drawImage(buffer2, null, this);
@@ -581,7 +584,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     }//GEN-LAST:event_guardarActionPerformed
 
     private void nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoActionPerformed
-        bufferGraphics.setColor(Color.WHITE);
+        bufferGraphics.setColor(Color.WHITE);//acceso directo para dibujo nuevo al igual que el borrar todo
         bufferGraphics.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
         bufferGraphics2.setColor(Color.WHITE);
         bufferGraphics2.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
@@ -589,7 +592,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     }//GEN-LAST:event_nuevoActionPerformed
 
     private void abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirActionPerformed
-        jFileChooser1.setFileFilter(new FileNameExtensionFilter("arhivos de imagen jpg", "jpg"));
+        jFileChooser1.setFileFilter(new FileNameExtensionFilter("arhivos de imagen jpg", "jpg"));//seleccioonar un dibujo previamente guardado
         jFileChooser1.setFileFilter(new FileNameExtensionFilter("arhivos de imagen png", "png"));
         int seleccion = jFileChooser1.showOpenDialog(this);
 
@@ -610,8 +613,8 @@ public class VentanaPaint extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_abrirActionPerformed
 
-    private void botonImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonImagenActionPerformed
-        texto = jTextArea1.getText();
+    private void botonTextoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTextoActionPerformed
+        texto = jTextArea1.getText();// boton del texto al cual eliges dicha herramienta
         escribeTexto.setVisible(false);
         _texto = new escribeTexto(Xtexto, Ytexto, texto);
         _texto.escribe(jPanelGraphics, Xtexto, Ytexto, texto, colores.colorSeleccionado,tamañoLetra);
@@ -623,10 +626,10 @@ public class VentanaPaint extends javax.swing.JFrame {
         bufferGraphics3 = buffer3.createGraphics();
         bufferGraphics3.drawImage(buffer2, null, this);
         buffers.add(buffer3);
-    }//GEN-LAST:event_botonImagenActionPerformed
+    }//GEN-LAST:event_botonTextoActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        if (buffers.size() > 1){
+        if (buffers.size() > 1){//acceso directo para el deshacer
             bufferGraphics2.drawImage(buffers.get(buffers.size() - 2), 0, 0, null);
             buffers.remove(buffers.size() - 1);
             jPanelGraphics.drawImage(buffer2, 0, 0, null);
@@ -674,7 +677,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     private javax.swing.JButton Cancelar;
     private javax.swing.JCheckBox Relleno;
     private javax.swing.JMenuItem abrir;
-    private javax.swing.JButton botonImagen;
+    private javax.swing.JButton botonTexto;
     private codigo.colores colores;
     private javax.swing.JDialog escribeTexto;
     private javax.swing.JMenuItem guardar;
