@@ -26,15 +26,13 @@ public class escribeTexto {
         texto = _texto;
     }
     
-    public void escribe(Graphics2D g2,int posX ,int posY,String texto,Color color,int tamañoLetra){
+    public void escribe(Graphics2D g2,int posX ,int posY,String texto,Color color,int tamañoLetra){//taqui damos la fuente, tamaño, letra...
         Font font = new Font("Comic Sans MS", Font.PLAIN, tamañoLetra);
         FontRenderContext frc = new FontRenderContext(null, true, true);
         Rectangle2D bounds = font.getStringBounds(texto, frc);
         g2.setColor(color);
         g2.setFont(font);
         g2.drawString(texto, (float) posX, (float) posY);
-//        g2.dispose();
-        
     }
 
 }
